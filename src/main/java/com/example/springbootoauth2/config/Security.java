@@ -1,5 +1,6 @@
 package com.example.springbootoauth2.config;
 
+import com.example.springbootoauth2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,13 +15,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class Security extends WebSecurityConfigurerAdapter {
 
     @Autowired
+    private UserService userService;
+    @Autowired
     private PasswordEncoder passwordEncoder;
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("lrc").password(passwordEncoder.encode("123"))
-                .authorities("all");
+                .withUser("lrc").password(passwordEncoder.encode("123456"))
+                .authorities("admin");
+        //auth.userDetailsService(userService);
 
     }
 
@@ -31,14 +36,13 @@ public class Security extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().anyRequest().authenticated();
     }
 
-    public static void main(String[] args) {
-        System.out.println(new BCryptPasswordEncoder().encode("123"));
-    }
-
-
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new BCryptPasswordEncoder().encode("123456"));
     }
 }

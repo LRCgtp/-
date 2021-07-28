@@ -45,7 +45,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
                 .withClient("web")
                 .secret(passwordEncoder.encode("secret"))
                 .scopes("all")
-                .authorizedGrantTypes("authorization_code","implicit","refresh_token")
+                .authorizedGrantTypes("authorization_code")
                 .accessTokenValiditySeconds(72000)
                 .redirectUris("http://localhost:8080/user/login");
         //密码模式获取token

@@ -1,5 +1,0 @@
-spring:
-  mvc:
-    view:
-      prefix: classpath:templates/
-      suffix: .html

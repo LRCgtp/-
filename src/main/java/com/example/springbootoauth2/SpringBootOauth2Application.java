@@ -9,9 +9,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import tk.mybatis.spring.annotation.MapperScan;
 
 @EnableAuthorizationServer
 @SpringBootApplication
+@MapperScan(value = "com.example.springbootoauth2.mapper")
 public class SpringBootOauth2Application {
 
     public static void main(String[] args) {
@@ -22,6 +24,5 @@ public class SpringBootOauth2Application {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
 
 }
