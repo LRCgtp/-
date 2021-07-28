@@ -1,0 +1,12 @@
+一。基于内存存储令牌和授权码
+1.授权模式
+获取授权码：
+GET: http://localhost:8080/oauth/authorize?client_id=web&response_type=code&redirect_uri=http://localhost:8080/user/login
+获取token令牌：
+POST: http://localhost:8080/oauth/token?client_id=web&client_secret=secret&grant_type=authorization_code&code=iSFJgM&redirect_uri=http://localhost:8080/user/login#/a
+
+2.密码模式:
+POST: http://localhost:8080/oauth/token?client_id=qq&client_secret=qq:secret&grant_type=password&username=lrc&password=123&scope=red
+
+3.客户端模式
+POST: http://localhost:8080/oauth/token?client_id=wechat&client_secret=wechat:secret&grant_type=client_credentials&scope=write
