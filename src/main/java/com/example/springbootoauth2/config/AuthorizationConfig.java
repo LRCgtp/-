@@ -46,17 +46,19 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
                 .secret(passwordEncoder.encode("secret"))
                 .scopes("all")
                 .authorizedGrantTypes("authorization_code")
-                .accessTokenValiditySeconds(72000)
-                .redirectUris("http://localhost:8080/user/login");
-        //密码模式获取token
-        clients.inMemory()
+                .accessTokenValiditySeconds(7200)
+                .redirectUris("http://localhost:8080/user/login")
+                .and()
+                //密码模式获取token
+                .inMemory()
                 .withClient("qq").secret(passwordEncoder.encode("qq:secret"))
                 .authorizedGrantTypes("password")
                 .accessTokenValiditySeconds(7200)
                 .scopes("red")
-                .redirectUris("https://www.baidu.com");
-        //客户端模式获取token
-        clients.inMemory()
+                .redirectUris("https://www.baidu.com")
+                .and()
+                 //客户端模式获取token
+                 .inMemory()
                 .withClient("wechat").secret(passwordEncoder.encode("wechat:secret"))
                 .authorizedGrantTypes("client_credentials")
                 .accessTokenValiditySeconds(7200)
@@ -82,7 +84,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
                 .authenticationManager(authenticationManager);
     }
 
-    //http://localhost:8080/oauth/authorize?client_id=web&response_type=code&redirect_uri=http://localhost:8080/user/login
+    //http://localhost:8080/oauth/authorize?client_id=web&response_type=code&redirect_uri=http://localhost:8080/user/login&client_secret=secret
 
 }
 

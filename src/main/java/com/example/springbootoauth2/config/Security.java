@@ -22,10 +22,10 @@ public class Security extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("lrc").password(passwordEncoder.encode("123456"))
-                .authorities("admin");
-        //auth.userDetailsService(userService);
+        /*auth.inMemoryAuthentication()
+                .withUser("lrc").password(passwordEncoder.encode("123"))
+                .authorities("admin");*/
+        auth.userDetailsService(userService);
 
     }
 
