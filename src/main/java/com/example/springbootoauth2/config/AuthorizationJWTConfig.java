@@ -24,19 +24,16 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 public class AuthorizationJWTConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private ClientService clientService;
+    @Autowired
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
+    @Autowired
+    private JwtTokenStore jwtTokenStore;
     @Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
-    private ClientService clientService;
-    /**
-     * token令牌存放位置
-     */
-    @Bean
-    public JwtTokenStore tokenStore(){
-        return new JwtTokenStore(jwtAccessTokenConverter());
-    }
-    /**
+
+
+    /*
      * 客户端配置
      * @param clients
      * @throws Exception
@@ -47,7 +44,8 @@ public class AuthorizationJWTConfig extends AuthorizationServerConfigurerAdapter
         clients.withClientDetails(clientService);
     }
 
-    /**
+
+    /*
      * 允许获取令牌请求，校验令牌请求通过
      * @param security
      * @throws Exception
@@ -61,17 +59,9 @@ public class AuthorizationJWTConfig extends AuthorizationServerConfigurerAdapter
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.tokenStore(tokenStore())
+        endpoints.tokenStore(jwtTokenStore)
                 .authenticationManager(authenticationManager)
-                .accessTokenConverter(jwtAccessTokenConverter());
-    }
-
-    @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter(){
-        JwtAccessTokenConverter jwtAccessTokenConverter=new JwtAccessTokenConverter();
-        //设置签名
-        jwtAccessTokenConverter.setSigningKey("lrc-wzx");
-        return jwtAccessTokenConverter;
+                .accessTokenConverter(jwtAccessTokenConverter);
     }
 
     //http://localhost:8080/oauth/authorize?client_id=web&response_type=code&redirect_uri=http://localhost:8080/user/login&client_secret=secret

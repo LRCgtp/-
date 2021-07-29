@@ -20,4 +20,5 @@ public class ClientDTO {
     private String authorizedGrantTypes;
     private String registeredRedirectUri;
     private Integer AccessTokenValiditySeconds;
+    private String authoritie;
 }

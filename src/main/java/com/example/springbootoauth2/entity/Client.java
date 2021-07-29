@@ -1,16 +1,12 @@
 package com.example.springbootoauth2.entity;
 
-import lombok.Builder;
-import org.apache.catalina.security.SecurityUtil;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.Table;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * 客户端实体类传递
@@ -24,8 +20,10 @@ public class Client implements ClientDetails {
     private String authorizedGrantTypes;
     private String registeredRedirectUri;
     private Integer AccessTokenValiditySeconds;
+    private String authoritie;
+    Collection<GrantedAuthority> authorities;
 
-    public Client(String clientId, String resourceIds, String clientSecret, String scope, String authorizedGrantTypes, String registeredRedirectUri, Integer accessTokenValiditySeconds) {
+    public Client(String clientId, String resourceIds, String clientSecret, String scope, String authorizedGrantTypes, String registeredRedirectUri, Integer accessTokenValiditySeconds, String authoritie, Collection<GrantedAuthority> authorities) {
         this.clientId = clientId;
         this.resourceIds = resourceIds;
         this.clientSecret = clientSecret;
@@ -33,6 +31,8 @@ public class Client implements ClientDetails {
         this.authorizedGrantTypes = authorizedGrantTypes;
         this.registeredRedirectUri = registeredRedirectUri;
         AccessTokenValiditySeconds = accessTokenValiditySeconds;
+        this.authoritie = authoritie;
+        this.authorities = authorities;
     }
 
     public Client() {
@@ -128,12 +128,12 @@ public class Client implements ClientDetails {
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
-
-        if (StringUtils.isEmpty(this.scope)){
+        if (StringUtils.isEmpty(this.authoritie)){
             return Collections.emptyList();
         }
-        Set<SimpleGrantedAuthority> authorities = Arrays.stream(scope.split(",")).map(item -> new SimpleGrantedAuthority(item)).collect(Collectors.toSet());
-        return (Collection)authorities;
+        Set<SimpleGrantedAuthority> authorities = Arrays.stream(this.authoritie.split(",")).map(item -> new SimpleGrantedAuthority(item)).collect(Collectors.toSet());
+        this.authorities = (Collection) authorities;
+        return this.authorities;
     }
 
     @Override
@@ -156,5 +156,11 @@ public class Client implements ClientDetails {
         return null;
     }
 
+    public String getAuthoritie() {
+        return authoritie;
+    }
 
+    public void setAuthoritie(String authoritie) {
+        this.authoritie = authoritie;
+    }
 }

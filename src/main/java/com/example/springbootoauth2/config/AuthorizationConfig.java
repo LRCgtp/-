@@ -22,22 +22,28 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 //@Configuration
 public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
-   /* @Autowired
+    /*@Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
     private AuthenticationManager authenticationManager;
+
+
     *//**
      * token令牌存放位置
+     * @return
      *//*
     @Bean
     public TokenStore tokenStore(){
         return new InMemoryTokenStore();
     }
-    *//**
+
+    *//*
      * 客户端配置
      * @param clients
      * @throws Exception
+     *
      *//*
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         //授权码模式获取token
@@ -66,11 +72,13 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
                 .redirectUris("https://www.baidu.com");
     }
 
-    *//**
+
+    *//*
      * 允许获取令牌请求，校验令牌请求通过
      * @param security
      * @throws Exception
      *//*
+
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.tokenKeyAccess("permitAll()")
@@ -82,8 +90,8 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(tokenStore())
                 .authenticationManager(authenticationManager);
-    }*/
-
+    }
+*/
     //http://localhost:8080/oauth/authorize?client_id=web&response_type=code&redirect_uri=http://localhost:8080/user/login&client_secret=secret
 
 }

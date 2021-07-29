@@ -35,6 +35,7 @@ public class ClientService implements ClientDetailsService {
             return client;
         }
         BeanUtils.copyProperties(clientList.get(0),client);
+        System.out.println(123);
         return client;
     }
 }
