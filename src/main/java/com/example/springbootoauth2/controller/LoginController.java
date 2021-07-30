@@ -1,7 +1,5 @@
 package com.example.springbootoauth2.controller;
 
-import com.example.springbootoauth2.entity.UserLogin;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
